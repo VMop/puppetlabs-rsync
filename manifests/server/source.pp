@@ -32,7 +32,7 @@
 #     require => File[$base],
 #   }
 #
-define rsync::server::module (
+define rsync::server::source (
   $path,
   $comment         = undef,
   $read_only       = 'yes',
@@ -47,7 +47,9 @@ define rsync::server::module (
   $secrets_file    = undef,
   $auth_users      = undef,
   $hosts_allow     = undef,
-  $hosts_deny      = undef)  {
+  $hosts_deny      = undef
+) {
+  include 'rsync::server'
 
   file { "${rsync::server::rsync_fragments}/frag-${name}":
     content => template('rsync/module.erb'),
